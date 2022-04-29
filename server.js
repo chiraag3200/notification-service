@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const userRouter = require('./routes/user')
+const notificationRouter = require('./routes/notifications')
 
 
 require('dotenv').config()
@@ -21,6 +22,7 @@ connection.once('open', () => {
 })
 
 app.use('/user', userRouter)
+app.use('/notifications', notificationRouter)
 
 
 app.listen(port, () => {

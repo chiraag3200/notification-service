@@ -3,6 +3,8 @@ let User = require('../models/users.models');
 const { sendEmail } = require("../utils/email_setup.js");
 
 const sendNotifications = (medium, req) => {
+  console.log(medium)
+  console.log(req.body)
 
   User.find({} , (err, users) => {
       if(err){

@@ -33,6 +33,10 @@ const userSchema = new Schema({
     minlength: 2,
     maxlength: 2,
   },
+  is_subscribed: {
+    type: Boolean,
+    default: true
+  },
   token: {
     type: String
   },

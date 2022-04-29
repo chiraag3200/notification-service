@@ -13,7 +13,7 @@ var data = {
 module.exports = () => {  
     cron.schedule('00 00 22 * * *', () => {
         try{
-          sendNotifications(meduim, data)
+          sendNotifications(medium, data)
           return res.status(200).send({
             message: `${meduim} sent successfully`   
           });

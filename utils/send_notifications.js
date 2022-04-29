@@ -3,15 +3,13 @@ let User = require('../models/users.models');
 const { sendEmail } = require("../utils/email_setup.js");
 
 const sendNotifications = (medium, req) => {
-  console.log(medium)
-  console.log(req.body)
 
-  User.find({} , (err, users) => {
+  User.find({is_subscribed: true} , (err, users) => {
       if(err){
         throw Error(err);
       }
 
-      // different mediums can be integrated here
+      // different mediums can be integrated to send notifications
       users.map(user => {
         try {
 
@@ -27,6 +25,7 @@ const sendNotifications = (medium, req) => {
           }
         }
         catch (err){
+          // #TODO handle failed notifications
           throw Error(err);
         }
       })

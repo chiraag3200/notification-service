@@ -9,15 +9,10 @@ router.route('/send').post((req, res) => {
 
   var meduim = req.headers['meduim'];
 
-  try{
-      sendNotifications(meduim, req.body)
-      return res.status(200).send({
-        message: `${meduim} sent successfully`   
-      });
-  }
-  catch(err){
-    res.status(400).json('Error: ' + err)
-  }
+  sendNotifications(medium, data)
+    .then(() => res.status(200).send({message: `${meduim} sent successfully`}));
+    .catch(err => res.status(400).json('Error: ' + err));
+    
 });
 
 module.exports = router;

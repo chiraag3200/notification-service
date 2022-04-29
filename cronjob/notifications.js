@@ -12,14 +12,8 @@ var data = {
 // cronjob to send notifications via a given medium daily at 10pm
 module.exports = () => {  
     cron.schedule('00 00 22 * * *', () => {
-        try{
-          sendNotifications(medium, data)
-          return res.status(200).send({
-            message: `${meduim} sent successfully`   
-          });
-        }
-        catch(err){
-          res.status(400).json('Error: ' + err)
-        }
+        sendNotifications(medium, data)
+          .then(() => res.status(200).send({message: `${meduim} sent successfully`}));
+          .catch(err => res.status(400).json('Error: ' + err));
     });
 }

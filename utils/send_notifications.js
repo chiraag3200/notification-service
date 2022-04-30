@@ -22,8 +22,6 @@ const sendNotifications = (medium, req) => {
         try {
 
           // email notifications
-          console.log(user.email)
-          throw Error('err')
           if (medium === 'email'){
             sendEmail(user.email, req.subject, req.body);
           }
@@ -35,6 +33,7 @@ const sendNotifications = (medium, req) => {
           }
         }
         catch (err){
+          // store failed notifications
           failed_users.push(user.email)
         }
       })

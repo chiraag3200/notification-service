@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const userRouter = require('./routes/user')
 const notificationRouter = require('./routes/notifications')
 
-
 require('dotenv').config()
 require('./cronjob/notifications')();
 

@@ -13,7 +13,17 @@ var data = {
 module.exports = () => {  
     cron.schedule('00 00 22 * * *', () => {
         sendNotifications(medium, data)
-          .then(() => res.status(200).send({message: `${meduim} sent successfully`}));
+          .then(() => res.status(200).send({message: `${meduim} sent successfully`}))
           .catch(err => res.status(400).json('Error: ' + err));
+    });
+}
+
+
+// cronjob to send notifications to the failed users whose emails are stored in redis at 11pm
+module.exports = () => {  
+    cron.schedule('00 00 23 * * *', () => {
+        // sendFailedNotifications(medium, data)
+          // .then(() => res.status(200).send({message: `${meduim} sent successfully`}))
+          // .catch(err => res.status(400).json('Error: ' + err));
     });
 }

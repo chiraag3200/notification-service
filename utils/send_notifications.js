@@ -1,6 +1,13 @@
 const router = require('express').Router();
 let User = require('../models/users.models');
 const { sendEmail } = require("../utils/email_setup.js");
+const redis = require('redis')
+
+const client = redis.createClient()
+client.on('connect', function() {
+  console.log('Connected!');
+});
+client.connect();
 
 const sendNotifications = (medium, req) => {
 
@@ -10,10 +17,13 @@ const sendNotifications = (medium, req) => {
       }
 
       // different mediums can be integrated to send notifications
+      var failed_users = [];
       users.map(user => {
         try {
 
           // email notifications
+          console.log(user.email)
+          throw Error('err')
           if (medium === 'email'){
             sendEmail(user.email, req.subject, req.body);
           }
@@ -25,10 +35,13 @@ const sendNotifications = (medium, req) => {
           }
         }
         catch (err){
-          // #TODO handle failed notifications
-          throw Error(err);
+          failed_users.push(user.email)
         }
       })
+
+      // push failed users emails to redis
+      const failed_users_emails = JSON.stringify(failed_users);
+      client.set('userlist', failed_users);
   })
 }
 
